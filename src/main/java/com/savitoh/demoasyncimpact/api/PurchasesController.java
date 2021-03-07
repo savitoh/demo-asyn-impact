@@ -42,17 +42,17 @@ public class PurchasesController {
      */
     private static class Reponse {
 
-        private final String timeToResponse;
+        private final long timeToResponseInSeconds;
 
         private final String message;
 
-        public Reponse(final long timeToResponse) {
-            this.timeToResponse = String.format("%d seconds", timeToResponse);
+        public Reponse(final long timeToResponseInSeconds) {
+            this.timeToResponseInSeconds = timeToResponseInSeconds;
             this.message = "Success!";
         }
 
-        public String getTimeToResponse() {
-            return timeToResponse;
+        public long getTimeToResponseInSeconds() {
+            return timeToResponseInSeconds;
         }
 
         public String getMessage() {
