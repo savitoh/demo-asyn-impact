@@ -18,7 +18,7 @@ This project can be carried out in two different ways.
     ```
    Now in the target folder:
    ```
-   java -DcorePoolSize=2 -DqueueCapacity=10 -DmaxPoolSize=4 -jar demo-async-impact-0.0.1-SNAPSHOT.jar
+   java -jar demo-async-impact-0.0.1-SNAPSHOT.jar
     ```
    Feel free to change the ThreadPoolTaskExecutor configuration values
 
