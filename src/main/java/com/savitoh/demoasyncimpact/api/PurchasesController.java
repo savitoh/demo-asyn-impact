@@ -45,17 +45,17 @@ public class PurchasesController {
      */
     private static class Reponse {
 
-        private final long timeToResponse;
+        private final long timeToResponseInMilliSeconds;
 
         private final String message;
 
         public Reponse(long timeToResponse) {
-            this.timeToResponse = timeToResponse;
+            this.timeToResponseInMilliSeconds = timeToResponse;
             this.message = "Success!";
         }
 
-        public long getTimeToResponse() {
-            return timeToResponse;
+        public long getTimeToResponseInMilliSeconds() {
+            return timeToResponseInMilliSeconds;
         }
 
         public String getMessage() {
