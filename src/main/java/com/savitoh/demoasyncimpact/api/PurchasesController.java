@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.Instant;
-import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequestMapping("/api/purchases")
@@ -22,7 +21,6 @@ public class PurchasesController {
 
     private final FakeEmailSenderService fakeEmailSenderService;
 
-
     public PurchasesController(FakePaymentService fakePaymentService, FakeEmailSenderService fakeEmailSenderService) {
         this.fakePaymentService = fakePaymentService;
         this.fakeEmailSenderService = fakeEmailSenderService;
@@ -32,11 +30,10 @@ public class PurchasesController {
     public Reponse buy() throws InterruptedException {
         final long startInMilliSeconds = Instant.now().toEpochMilli();
         LOGGER.info("Starting time: {}", startInMilliSeconds);
-        final CompletableFuture<Integer> test = fakePaymentService.pay();
-        final CompletableFuture<Integer> test2 = fakePaymentService.pay();fakeEmailSenderService.send();
-        CompletableFuture.allOf(test, test2).join();
-        final long elapsedTime = Instant.now().toEpochMilli() - startInMilliSeconds;
-        LOGGER.info("Elapsed time: {}", elapsedTime);
+        fakePaymentService.pay();
+        fakeEmailSenderService.send();
+        final long elapsedTime = (Instant.now().toEpochMilli() - startInMilliSeconds)/1000;
+        LOGGER.info("Elapsed time: {} seconds", elapsedTime);
         return new Reponse(elapsedTime);
     }
 
@@ -45,16 +42,16 @@ public class PurchasesController {
      */
     private static class Reponse {
 
-        private final long timeToResponse;
+        private final String timeToResponse;
 
         private final String message;
 
-        public Reponse(long timeToResponse) {
-            this.timeToResponse = timeToResponse;
+        public Reponse(final long timeToResponse) {
+            this.timeToResponse = String.format("%d seconds", timeToResponse);
             this.message = "Success!";
         }
 
-        public long getTimeToResponse() {
+        public String getTimeToResponse() {
             return timeToResponse;
         }
 
