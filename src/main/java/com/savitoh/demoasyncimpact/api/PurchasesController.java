@@ -32,9 +32,9 @@ public class PurchasesController {
     public Reponse buy() throws InterruptedException {
         final long startInMilliSeconds = Instant.now().toEpochMilli();
         LOGGER.info("Starting time: {}", startInMilliSeconds);
-        final CompletableFuture<Integer> test = fakePaymentService.pay();
-        final CompletableFuture<Integer> test2 = fakePaymentService.pay();fakeEmailSenderService.send();
-        CompletableFuture.allOf(test, test2).join();
+        final CompletableFuture<Integer> timeToPay = fakePaymentService.pay();
+        final CompletableFuture<Integer> timeToSendEmail = fakeEmailSenderService.send();
+        CompletableFuture.allOf(timeToPay, timeToSendEmail).join();
         final long elapsedTime = Instant.now().toEpochMilli() - startInMilliSeconds;
         LOGGER.info("Elapsed time: {}", elapsedTime);
         return new Reponse(elapsedTime);
